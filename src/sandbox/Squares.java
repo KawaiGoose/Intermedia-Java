@@ -1,4 +1,4 @@
-/*
+
 package sandbox;
 
 import graphics.WinApp;
@@ -19,9 +19,13 @@ public class Squares extends WinApp implements ActionListener {
 
     public static boolean showSpline = false;
 
+    public static G.VS theVS = new G.VS(100,100,200,300); //创造矩形
+
+    public static Color color = G.rndColor(); //随机颜色
+
     public static Square.List squares = new Square.List(); //创建对象
 
-    public static Square lastSquare;
+    public static Square lastSquare; //先声明变量但是不指向任何初始化对象
 
     public static boolean dragging = false;
 
@@ -36,11 +40,8 @@ public class Squares extends WinApp implements ActionListener {
         timer = new Timer(30,this);
         timer.setInitialDelay(5000);
         timer.start();
-
     }
 
-    public static G.VS theVS = new G.VS(100,100,200,300); //创造矩形
-    public static Color color = G.rndColor(); //随机颜色
 
     @Override
     public void paintComponent(Graphics g){
@@ -49,9 +50,10 @@ public class Squares extends WinApp implements ActionListener {
         squares.draw(g);
         if (showSpline && squares.size() > 2){
             g.setColor(Color.BLACK);
-            G.V a = squares.get(0).loc, b = squares.get(1).loc, c = squares.get(2).loc;
+            G.V a = squares.get(0).loc;
+            G.V b = squares.get(1).loc;
+            G.V c = squares.get(2).loc;
             G.spline(g, a.x, a.y, b.x, b.y, c.x, c.y, 4);
-
         }
     }
 
@@ -90,6 +92,14 @@ public class Squares extends WinApp implements ActionListener {
 //        repaint();
 //    }
 
+//    @Override
+//    public void mouseReleased(MouseEvent me){
+//        if (dragging){
+//            lastSquare.dv.set(me.getX() - pressedLoc.x,me.getY() - pressedLoc.y);
+//        }
+//    }
+
+    // 优化点击，把所有点击动作放到I.Area中
     public static I.Area curArea; //点击方格还是白板，两个选项
     @Override
     public void mousePressed(MouseEvent me){
@@ -116,17 +126,13 @@ public class Squares extends WinApp implements ActionListener {
         repaint();
     }
 
-//    @Override
-//    public void mouseReleased(MouseEvent me){
-//        if (dragging){
-//            lastSquare.dv.set(me.getX() - pressedLoc.x,me.getY() - pressedLoc.y);
-//        }
-//    }
-
     //-----------------Square------------------------------
+
     public static class Square extends G.VS implements I.Area{
+        //这个变量被赋值为 Square 类的一个匿名子类的新实例。
+        // {}中表示，这个匿名子类重写或者拓展的一些方法（如 dn, drag, up）
+        //也就意味着我们可以把简单的不值得新建一个类的功能直接加进去
         public static Square BACKGROUND = new Square(){
-            //anonymous class --> 简单的不值得新建一个类的功能直接加进去
 
             public void dn(int x, int y){ //background create a new block and resize
                 lastSquare = new Square(x,y);
@@ -137,27 +143,23 @@ public class Squares extends WinApp implements ActionListener {
                 lastSquare.resize(x,y);
             }
 
-            public void up(int x, int y){
-                lastSquare.moveTo(x,y);
-            }
         };
-
-
-
-        //overloading
-        public Square(){
-            super(0,0,UC.largePossibleCoorinate,UC.largePossibleCoorinate);
-            c = Color.WHITE;
-        }
 
         public Color c = G.rndColor();
 
-//        public G.V dv = new G.V(G.rnd(20) - 10,G.rnd(20) - 10);
+        //        public G.V dv = new G.V(G.rnd(20) - 10,G.rnd(20) - 10);
         public G.V dv = new G.V(0,0);
 
         public Square(int x, int y){super(x,y,100,100);}
 
-        public void draw(Graphics g){fill(g,c); moveandBounce();}
+        //overloading 构造类
+        public Square(){
+            super(0,0,UC.largePossibleCoorinate,UC.largePossibleCoorinate);
+            c = Color.WHITE;
+        }
+        public void draw(Graphics g){
+            fill(g,c);
+            moveandBounce();}
 
         //rubberband rectangles
         public void resize(int x, int y){if(x>loc.x && y>loc.y){size.set(x - loc.x, y - loc.y);}}
@@ -165,6 +167,7 @@ public class Squares extends WinApp implements ActionListener {
         //Dragging Boxes
         public void moveTo(int x, int y){loc.set(x,y);}
 
+        //Animation
         public void moveandBounce(){
             loc.add(dv);
             if (xL() < 0 && dv.x < 0){dv.x = - dv.x;}
@@ -192,6 +195,7 @@ public class Squares extends WinApp implements ActionListener {
 
         //------------------List----------------------------
         public static class List extends ArrayList<Square> {
+            //overload
             public List(){
                 super();
                 this.add(Square.BACKGROUND);
@@ -212,4 +216,4 @@ public class Squares extends WinApp implements ActionListener {
 
     public static void main(String[] args){PANEL=new Squares();WinApp.launch();}
 }
-*/
+

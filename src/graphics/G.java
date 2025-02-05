@@ -44,13 +44,12 @@ public class G {
             this.x = x;
             this.y = y;
         }
-
+        public void set(V v) {
+            set(v.x, v.y);}
         public void add(V v) {
             x += v.x;
             y += v.y;
         } // vector addition
-
-        public void set(V v) {set(v.x, v.y);}
     }
 
     // ----------- VS ----------------

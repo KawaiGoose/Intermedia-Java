@@ -19,10 +19,10 @@ public class Ovals extends WinApp {
 
     private static G.V mouseDelta = new G.V(0,0);// (四) 用于存储鼠标偏移量
 
-
     public Ovals() {
         super("Ovals", 1000, 700);
     }
+
 
     public void paintComponent(Graphics g){
         g.setColor(color); //（一）
