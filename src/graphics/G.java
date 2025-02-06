@@ -101,7 +101,7 @@ public class G {
         }
 
         public void drawN(Graphics g, int n){ //画一个initial的line
-            for (int i = 0; i < n; i++) {
+            for (int i = 1; i < n; i++) {
                 g.drawLine(points[i - 1].x, points[i - 1].y, points[i].x, points[i].y);
             }
         }

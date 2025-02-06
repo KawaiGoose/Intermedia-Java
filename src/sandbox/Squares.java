@@ -130,7 +130,7 @@ public class Squares extends WinApp implements ActionListener {
 
     public static class Square extends G.VS implements I.Area{
         //这个变量被赋值为 Square 类的一个匿名子类的新实例。
-        // {}中表示，这个匿名子类重写或者拓展的一些方法（如 dn, drag, up）
+        //{}中表示，这个匿名子类重写或者拓展的一些方法（如 dn, drag, up）
         //也就意味着我们可以把简单的不值得新建一个类的功能直接加进去
         public static Square BACKGROUND = new Square(){
 

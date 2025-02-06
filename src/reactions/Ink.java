@@ -7,7 +7,6 @@ import music.UC;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static jdk.internal.jshell.tool.StopDetectingInputStream.State.BUFFER;
 
 public class Ink extends G.PL implements I.Show{
 
@@ -56,6 +55,9 @@ public class Ink extends G.PL implements I.Show{
         public void drag(int x, int y) {add(x,y);}//当鼠标拖动时调用。继续在新位置添加点。
         public boolean hit(int x, int y) {return true;}
         public void show(Graphics g) {drawN(g, n);}
+        public static void Print() {
+            System.out.println("hello");
+        }
     }
 
     // -------------------List-----------------------
