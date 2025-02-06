@@ -79,21 +79,21 @@ public class G {
 
     }
 
-    //-----------------------LoHi---------------------
+    //-----------------------LoHi---------------------跟踪一组点在单一维度（水平或垂直）上的最小和最大值
     public static class LoHi {
     }
 
-    //-----------------------BBox---------------------
+    //-----------------------BBox---------------------跟踪一组点在单一维度（水平或垂直）上的最小和最大值
     public static class BBox {
     }
 
     //-----------------------PL-----------------------
     public static class PL {
-        public V[] points;
+        public V[] points; //points 是一个数组，每个元素都是一个 V 类的实例
         public PL(int count) {
-            points = new V[count];
+            points = new V[count];//在构造函数内部，初始化 points 数组
             for (int i = 0; i < count; i++) {
-                points[i] = new V(0,0);
+                points[i] = new V(0,0);//并为每个索引位置创建一个新的 V 实例，默认位置为 (0,0)。
             }
         }
         public int size(){

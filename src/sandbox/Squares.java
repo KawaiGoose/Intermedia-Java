@@ -42,7 +42,6 @@ public class Squares extends WinApp implements ActionListener {
         timer.start();
     }
 
-
     @Override
     public void paintComponent(Graphics g){
         G.clearScreen(g);
@@ -145,10 +144,10 @@ public class Squares extends WinApp implements ActionListener {
 
         };
 
+        public G.V dv = new G.V(0,0);
         public Color c = G.rndColor();
 
         //        public G.V dv = new G.V(G.rnd(20) - 10,G.rnd(20) - 10);
-        public G.V dv = new G.V(0,0);
 
         public Square(int x, int y){super(x,y,100,100);}
 
@@ -157,6 +156,7 @@ public class Squares extends WinApp implements ActionListener {
             super(0,0,UC.largePossibleCoorinate,UC.largePossibleCoorinate);
             c = Color.WHITE;
         }
+        //Animation
         public void draw(Graphics g){
             fill(g,c);
             moveandBounce();}
@@ -179,19 +179,16 @@ public class Squares extends WinApp implements ActionListener {
         @Override
         public void dn(int x, int y) {
             mouseDelta.set(loc.x - x, loc.y - y);
-
         }
 
         @Override
         public void up(int x, int y) {
-
         }
 
         @Override
         public void drag(int x, int y) {
             loc.set(mouseDelta.x + x, mouseDelta.y + y );
         }
-
 
         //------------------List----------------------------
         public static class List extends ArrayList<Square> {

@@ -8,7 +8,7 @@ import reactions.Ink;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-// Tetsing - gesture识别系统
+// Testing - gesture识别系统
 public class PaintInk extends WinApp {
     public static Ink.List inkList= new Ink.List();
 
@@ -23,7 +23,6 @@ public class PaintInk extends WinApp {
     public void paintComponent(Graphics g){
         g.setColor(Color.RED);
         Ink.BUFFER.show(g);
-        Ink.Buffer.Print();
         inkList.show(g);
     }
 
