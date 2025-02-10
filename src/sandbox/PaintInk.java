@@ -24,6 +24,7 @@ public class PaintInk extends WinApp {
         g.setColor(Color.RED);
         Ink.BUFFER.show(g);
         inkList.show(g);
+        g.drawString("point" + Ink.BUFFER.n, 600, 30);
     }
 
     public void mousePressed(MouseEvent me){
