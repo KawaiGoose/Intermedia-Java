@@ -26,18 +26,6 @@ public class Ink implements I.Show {
         norm.drawAt(g, vs);
     }
 
-    public int dist(Norm n) {
-        int res = 0;
-        for (int i = 0; i < Norm.N; i++) {
-            if (points[i] != null && n.points[i] != null) { // ✅ 避免 NullPointerException
-                int dx = points[i].x - n.points[i].x;
-                int dy = points[i].y - n.points[i].y;
-                res += dx * dx + dy * dy;
-            }
-        }
-        return res;
-    }
-
     // ------------------- Norm (标准化笔画) ----------------------
     public static class Norm extends G.PL {
         public static final int N = UC.normCoordMax;
@@ -45,7 +33,7 @@ public class Ink implements I.Show {
         public static final G.VS NCS = new G.VS(0, 0, MAX, MAX); // Normalized coordinate system
 
         public Norm() {
-            super(N);
+            super(N); // ✅ 确保调用 PL 的构造方法
             BUFFER.subSample(this);
             G.V.T.set(BUFFER.bBox, NCS);
             transform();
@@ -58,6 +46,18 @@ public class Ink implements I.Show {
                     g.drawLine(points[i - 1].tx(), points[i - 1].ty(), points[i].tx(), points[i].ty());
                 }
             }
+        }
+
+        public int dist(Norm n) {
+            int res = 0;
+            for (int i = 0; i < N; i++) {
+                if (points[i] != null && n.points[i] != null) { // ✅ 避免 NullPointerException
+                    int dx = points[i].x - n.points[i].x;
+                    int dy = points[i].y - n.points[i].y;
+                    res += dx * dx + dy * dy;
+                }
+            }
+            return res;
         }
 
         public void blend(Norm norm, int nBlend) {

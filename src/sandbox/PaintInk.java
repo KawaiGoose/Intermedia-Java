@@ -6,6 +6,8 @@ import reactions.Ink;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import reactions.Shape;
+
 
 // Testing - gesture识别系统
 public class PaintInk extends WinApp {
