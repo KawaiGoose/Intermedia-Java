@@ -34,8 +34,8 @@ public class G {
 
     // ----------- V ------------------
     public static class V {
+        public static Transform T = new Transform();
         public int x, y;
-
         public V(int x, int y) {
             this.set(x, y);
         }
@@ -50,7 +50,39 @@ public class G {
             x += v.x;
             y += v.y;
         } // vector addition
+        public void setT(V v) {set(v.tx(), v.ty());}
+        public int tx(){return x *T.n/T.d + T.dx;}
+        public int ty(){return x *T.n/T.d + T.dx;}
     }
+        public void blend(V v, int k){
+            set(k*x + v.x)/(k+1), (k*y + v.y)/(k+1);
+        }
+
+
+    //------------------Transform------------------------
+        public static class Transform{
+        int dx, dy, n, d;
+        private void setScale(int oW, int oH, int nW, int nH){
+            n = (nW > nH) ? nW:nH;//n是更大的new width 和new height
+            d = (oW > oH) ? oW:oH;
+        }
+        private int setOff(int oX, int oW, int nX, int nW){
+            return (-oX-oW/2) *n/d + nX + nW/2;//先把他缩小，移到（0，0）位置，然后放到新的点然后放大boom scale up
+        }
+        public void set(VS oVS, VS nVS){
+            setScale(oVS.size.x, oVS.size.y, nVS.size.x, nVS.size.y);
+            dx = setOff(oVS.loc.x, oVS.size.x,nVS.loc.x, nVS.size.x);
+            dy = setOff(oVS.loc.y, oVS.size.y,nVS.loc.y, nVS.size.y);
+        }
+        public void set(BBox from, VS to){
+            setScale(from.h.size(), from.v.size(), to.size.x, to.size.y);
+            dx = setOff(from.h.lo, from.h.size(),to.loc.x, to.size.x);
+            dy = setOff(from.v.lo, from.v.size(),to.loc.y, to.size.y);
+        }
+        }
+
+
+
 
     // ----------- VS ----------------
     public static class VS {
@@ -130,6 +162,12 @@ public class G {
         }
         public void draw(Graphics g){
             drawN(g, points.length);
+        }
+
+        public void transform(){
+            for (int i = 0; i < points.length; i++) {
+                points[i].setT(points[i]);
+            }
         }
 
     }

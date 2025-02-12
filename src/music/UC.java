@@ -11,5 +11,6 @@ public class UC {
     public static final int inkBufferMAX = 300;
     public static final Color inkColor = Color.CYAN;
     public static final int normSampleSize = 25;
-
+    public static final int normCoordMax = 1000;
+    public static final int noMatchDist = 500000;
 }
