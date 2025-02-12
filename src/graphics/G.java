@@ -52,11 +52,12 @@ public class G {
         } // vector addition
         public void setT(V v) {set(v.tx(), v.ty());}
         public int tx(){return x *T.n/T.d + T.dx;}
-        public int ty(){return x *T.n/T.d + T.dx;}
+        public int ty(){return x *T.n/T.d + T.dy;}
     }
-        public void blend(V v, int k){
-            set(k*x + v.x)/(k+1), (k*y + v.y)/(k+1);
+        public void blend(V v, int k) {
+            set((k * x + v.x) / (k + 1), (k * y + v.y) / (k + 1));
         }
+
 
 
     //------------------Transform------------------------
@@ -80,8 +81,6 @@ public class G {
             dy = setOff(from.v.lo, from.v.size(),to.loc.y, to.size.y);
         }
         }
-
-
 
 
     // ----------- VS ----------------
